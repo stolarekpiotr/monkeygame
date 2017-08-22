@@ -2,12 +2,9 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>MonkeyGame</title>
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
         crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
@@ -17,18 +14,78 @@
     <div class="container">
         <h1 class="text-center my-5 text-primary">MonkeyGame</h1>
         <div class="d-flex justify-content-center mb-4">
-            <button type="button" class="btn btn-outline-primary mx-2">Rules</button>
-            <button type="button" class="btn btn-outline-info mx-2">About</button>
+            <button type="button" class="btn btn-outline-primary mx-2" data-toggle="modal" data-target="#rulesModal">Rules</button>
+            <button type="button" class="btn btn-outline-info mx-2" data-toggle="modal" data-target="#aboutModal">About</button>
             <button id="resetButton" type="button" class="btn btn-outline-secondary mx-2">RESET</button>
         </div>
         <h2 class="text-center my-2 text-secondary">Level: <span id="level"></span></h2>
 
         <canvas class="d-block mx-auto" width="700" height="500" id="board"></canvas>
+        <div class="btn-group d-flex justify-content-center" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked> Light
+                </label>
+            <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="option2" autocomplete="off"> Dark
+                </label>
+        </div>
     </div>
 
+    <!-- About Modal -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="About Modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aboutModalLabel">About</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <p>This game is based on a memory test that was a part of ongoing research effort aimed at understanding
+                        chimpanzee cognition. It's testing <a class="text-primary" href="https://en.wikipedia.org/wiki/Short-term_memory">short-term memory</a>.
+                        You can watch that experiment in a video below:</p>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zsXP8qeFF6A" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Rules Modal -->
+    <div class="modal fade" id="rulesModal" tabindex="-1" role="dialog" aria-labelledby="Rules Modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rulesModalLabel">Rules</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <ul>
+                            <li>Memorize positions and numbers in circles</li>
+                            <li>Click circles in an ascending order (1->2->3->... and so on)</li>
+                            <li>When you click first circle, numbers will hide</li>
+                            <li>If you click all circles correctly, you will get to the next level (level equals the amount of
+                                circles on board)</li>
+                            <li class="text-danger">If the wrong circle is clicked, level will be restarted</li>
+                            <li class="text-info">You can reset the game (back to level 1) with the <button type="button" class="btn btn-outline-secondary mx-2">RESET</button>                                button</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

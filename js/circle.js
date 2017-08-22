@@ -9,7 +9,7 @@ function Circle(id) {
         x: 0,
         y: 0,
         radius: that.radius,
-        lineWidth: 1,
+        lineWidth: 5,
         strokeStyle: '#333E4B',
         fillStyle: '#1C73A8',
         anchor: 'center'

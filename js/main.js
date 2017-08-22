@@ -114,4 +114,8 @@ $(document).ready(function () {
         drawBoard();
         levelDisplay.text(level);
     });
+
+    $("#aboutModal").on('hidden.bs.modal', function (e) {
+        $("#aboutModal iframe").attr("src", $("#aboutModal iframe").attr("src"));
+    });
 });
