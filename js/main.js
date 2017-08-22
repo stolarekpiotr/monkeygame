@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
     var that = this;
     var canvas = document.getElementById('board');
     var stage = new Facade(document.querySelector('#board'));
@@ -8,7 +8,7 @@ $(document).ready(function(){
     var circles = [];
     var counter = 0;
     var start = false;
-    var level = 5;
+    var level = 1;
     var levelDisplay = $("#level");
     levelDisplay.text(level);
     initialize();
@@ -45,9 +45,9 @@ $(document).ready(function(){
                 }
             }
         }
-        if (counter >= circles.length) {
+        if (counter >= level) {
             resetRound();
-            addCircle();
+            nextLevel();
             repositionCircles();
         }
         drawBoard();
@@ -63,9 +63,10 @@ $(document).ready(function(){
         return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
     }
 
-    function addCircle() {
-        circles.push(new Circle(circles.length));
+    function nextLevel() {
         ++level;
+        circles.push(new Circle(circles.length));
+        levelDisplay.text(level);
     }
 
     function drawBoard() {
@@ -89,7 +90,7 @@ $(document).ready(function(){
         }
     }
 
-     function repositionCircle(circle) {
+    function repositionCircle(circle) {
         var flag, x, y;
         do {
             x = getRandom(circle.radius, boardWidth - circle.radius);
@@ -106,4 +107,11 @@ $(document).ready(function(){
         circle.x = x;
         circle.y = y;
     }
+
+    $("#resetButton").on("click", function () {
+        level = 1;
+        resetRound();
+        drawBoard();
+        levelDisplay.text(level);
+    });
 });
