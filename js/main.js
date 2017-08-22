@@ -11,65 +11,12 @@ $(document).ready(function(){
     var level = 5;
     var levelDisplay = $("#level");
     levelDisplay.text(level);
-    that.radius = 25;
     initialize();
     drawBoard();
 
-    function Circle() {
-        this.x = 0;
-        this.y = 0;
-        this.id = circles.length;
-        this.checked = true;
-        this.circleshape = new Facade.Circle({
-            x: 0,
-            y: 0,
-            radius: that.radius,
-            lineWidth: 1,
-            strokeStyle: '#333E4B',
-            fillStyle: '#1C73A8',
-            anchor: 'center'
-        });
-        this.text = new Facade.Text(this.id+1, {
-            x: 0,
-            y: 0,
-            width: that.radius * 2,
-            fontSize: 30,
-            anchor: 'center',
-            textAlignment: 'center'
-        });
-        this.draw = function () {
-            var group = new Facade.Group({
-                x: this.x,
-                y: this.y
-            });
-            group.addToGroup(this.circleshape);
-            if (this.checked) {
-                group.addToGroup(this.text);
-            }
-            return group;
-        }
-        this.reposition = function () {
-            var flag, x, y;
-            do {
-                x = getRandom(that.radius, boardWidth - that.radius);
-                y = getRandom(that.radius, boardHeight - that.radius);
-                flag = false;
-                for (var i = 0; i < this.id; i++) {
-                    var element = circles[i];
-                    if (distance(x, y, element.x, element.y) <= that.radius * 2.5) {
-                        flag = true;
-                        break;
-                    }
-                }
-            } while (flag);
-            this.x = x;
-            this.y = y;
-        }
-    }
-
     function initialize() {
         for (var i = 0; i < level; i++) {
-            circles.push(new Circle());
+            circles.push(new Circle(i));
         };
         repositionCircles();
     }
@@ -84,7 +31,7 @@ $(document).ready(function(){
     $("#board").click(function (event) {
         for (var i = 0; i < level; i++) {
             var element = circles[i];
-            if (distance(event.offsetX, event.offsetY, element.x, element.y) <= that.radius) {
+            if (distance(event.offsetX, event.offsetY, element.x, element.y) <= element.radius) {
                 if (!start) {
                     start = true;
                     setCirclesCheck(false);
@@ -117,7 +64,7 @@ $(document).ready(function(){
     }
 
     function addCircle() {
-        circles.push(new Circle());
+        circles.push(new Circle(circles.length));
         ++level;
     }
 
@@ -138,7 +85,25 @@ $(document).ready(function(){
 
     function repositionCircles() {
         for (var i = 0; i < level; i++) {
-            circles[i].reposition();;
+            repositionCircle(circles[i]);
         }
+    }
+
+     function repositionCircle(circle) {
+        var flag, x, y;
+        do {
+            x = getRandom(circle.radius, boardWidth - circle.radius);
+            y = getRandom(circle.radius, boardHeight - circle.radius);
+            flag = false;
+            for (var i = 0; i < circle.id; i++) {
+                var element = circles[i];
+                if (distance(x, y, element.x, element.y) <= circle.radius * 2.5) {
+                    flag = true;
+                    break;
+                }
+            }
+        } while (flag);
+        circle.x = x;
+        circle.y = y;
     }
 });
