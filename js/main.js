@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     var that = this;
     var canvas = document.getElementById('board');
     var stage = new Facade(document.querySelector('#board'));
@@ -40,6 +41,8 @@ $(document).ready(function () {
                     element.checked = true;
                     counter++;
                     break;
+                } else if (element.id <= counter) {
+
                 } else {
                     resetRound();
                 }

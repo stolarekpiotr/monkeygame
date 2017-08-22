@@ -20,7 +20,8 @@ function Circle(id) {
         width: that.radius * 2,
         fontSize: 30,
         anchor: 'center',
-        textAlignment: 'center'
+        textAlignment: 'center',
+        fillStyle: 'white'
     });
     that.draw = function () {
         var group = new Facade.Group({
